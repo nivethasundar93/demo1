@@ -1,0 +1,62 @@
+package dropdownmethods;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class addtocartnew {
+
+	public static void main(String[] args)  {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.edge.driver", "C:\\Users\\bsund\\msedgedriver.exe");
+
+		WebDriver driver = new EdgeDriver();
+
+		driver.get("https://rahulshettyacademy.com/angularpractice/");
+
+		driver.findElement(By.linkText("Shop")).click();
+
+		driver.manage().window().maximize();
+
+		List<WebElement> count = driver.findElements(By.cssSelector("h4.card-title"));
+
+		for (int i = 0; i < count.size(); i++) {
+
+			String name = count.get(i).getText();
+
+			if (name.contains("Blackberry")) {
+
+				driver.findElements(By.xpath("//div[@class='card-footer']/button")).get(i).click();
+
+				break;
+
+			}
+		}
+
+		driver.findElement(By.xpath("//div[@id='navbarResponsive']/ul/li/a")).click();
+		driver.findElement(By.xpath("//button[@class='btn btn-success']")).click();
+		driver.findElement(By.id("country")).sendKeys("Ind");
+		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+
+		List<WebElement> products = driver.findElements(By.cssSelector("div.suggestions ul li a"));
+		for (WebElement items : products) {
+			if (items.getText().equalsIgnoreCase("India")) {
+				items.click();
+				break;
+
+			}
+		}
+
+		driver.findElement(By.xpath("//*[@class='checkbox checkbox-primary']")).click();
+
+		driver.findElement(By.xpath("//*[@class='ng-untouched ng-pristine ng-valid']")).click();
+		System.out.println(driver.findElement(By.xpath("//*[@class='alert alert-success alert-dismissible']")).getText());
+
+		driver.close();
+	}
+
+}
